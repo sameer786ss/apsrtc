@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --brand: #b91c1c;
+  --brand-light: #fee2e2;
+  --brand-dark: #991b1b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* ── Telugu language support ─────────────────────────────────────
+   Telugu diacritics extend significantly above/below baseline.
+   Line-height must be ≥ 1.9 or text gets clipped.
+─────────────────────────────────────────────────────────────────── */
+body, p, li, span, td, th, label, input, textarea, select, button {
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Global button/input vertical text fix ───────────────────────────
+   Use @layer base so Tailwind utility classes (flex, w-full, etc.)
+   always take precedence over these defaults.
+──────────────────────────────────────────────────────────────────────── */
+@layer base {
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    vertical-align: middle;
+  }
+  input, textarea, select {
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+}
+
+/* ── TipTap editor shell ─────────────────────────────────────────── */
+.tiptap-wrapper { border: 1px solid #d1d5db; border-radius: 0.5rem; overflow: hidden; background: #fff; }
+.tiptap-toolbar { display: flex; flex-wrap: wrap; gap: 2px; padding: 6px 10px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; align-items: center; }
+.tiptap-toolbar button {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 5px 7px; border-radius: 5px; border: none; background: transparent;
+  cursor: pointer; color: #374151; transition: background 0.12s, color 0.12s;
+}
+.tiptap-toolbar button:hover { background: #e5e7eb; }
+.tiptap-toolbar button.is-active { background: #fee2e2; color: #b91c1c; }
+/* Image upload label button inside toolbar */
+.tiptap-toolbar label { color: #374151; transition: background 0.12s; }
+.tiptap-toolbar label:hover { background: #e5e7eb; border-radius: 5px; }
+.tiptap-toolbar label.is-active { background: #fee2e2; color: #b91c1c; border-radius: 5px; }
+/* Separator.Root renders as a div — target with class */
+.toolbar-divider { width: 1px; background: #e5e7eb; margin: 3px 6px; align-self: stretch; min-height: 18px; flex-shrink: 0; }
+
+/* ── ProseMirror editor area ─────────────────────────────────────── */
+.ProseMirror {
+  padding: 14px 18px; min-height: 320px; outline: none; color: #111827;
+  font-size: 15px; line-height: 2;
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+}
+.ProseMirror p { margin: 0.6rem 0; }
+.ProseMirror h1 { font-size: 1.75rem; font-weight: 700; margin: 1rem 0 0.5rem; }
+.ProseMirror h2 { font-size: 1.4rem; font-weight: 700; margin: 0.9rem 0 0.4rem; }
+.ProseMirror h3 { font-size: 1.2rem; font-weight: 600; margin: 0.8rem 0 0.3rem; }
+.ProseMirror ul { list-style: disc; padding-left: 1.5rem; }
+.ProseMirror ol { list-style: decimal; padding-left: 1.5rem; }
+.ProseMirror blockquote { border-left: 3px solid #b91c1c; padding-left: 1rem; color: #4b5563; font-style: italic; margin: 0.75rem 0; }
+.ProseMirror code { background: #f3f4f6; padding: 2px 5px; border-radius: 4px; font-size: 0.875em; color: #b91c1c; font-family: monospace; }
+.ProseMirror pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+.ProseMirror pre code { background: none; color: inherit; padding: 0; }
+.ProseMirror a { color: #b91c1c; text-decoration: underline; }
+.ProseMirror img { max-width: 100%; border-radius: 8px; margin: 0.75rem 0; }
+.ProseMirror hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder); color: #9ca3af; pointer-events: none; height: 0; float: left;
+}
+
+/* ── Prose styles (blog content rendering) ───────────────────────── */
+.rich-content {
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+  line-height: 2; font-size: 15px; color: #1f2937;
+}
+.rich-content h1 { font-size: 1.875rem; font-weight: 700; margin: 1.25rem 0 0.75rem; color: #111827; line-height: 1.3; }
+.rich-content h2 { font-size: 1.5rem; font-weight: 700; margin: 1.1rem 0 0.6rem; color: #111827; line-height: 1.35; }
+.rich-content h3 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; color: #111827; line-height: 1.4; }
+.rich-content p { margin: 0.85rem 0; line-height: 2; }
+.rich-content ul { list-style: disc; padding-left: 1.5rem; margin: 0.75rem 0; }
+.rich-content ol { list-style: decimal; padding-left: 1.5rem; margin: 0.75rem 0; }
+.rich-content li { margin: 0.35rem 0; line-height: 2; }
+.rich-content blockquote { border-left: 4px solid #b91c1c; padding-left: 1rem; margin: 1rem 0; color: #4b5563; font-style: italic; background: #fff5f5; padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; }
+.rich-content code { background: #f3f4f6; padding: 2px 5px; border-radius: 4px; font-size: 0.875em; font-family: monospace; color: #b91c1c; }
+.rich-content pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+.rich-content pre code { background: none; color: inherit; padding: 0; }
+.rich-content a { color: #b91c1c; text-decoration: underline; }
+.rich-content a:hover { color: #991b1b; }
+.rich-content strong { font-weight: 700; }
+.rich-content em { font-style: italic; }
+.rich-content hr { border: none; border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
+.rich-content img { max-width: 100%; border-radius: 8px; margin: 1rem 0; }
+
+/* ── Radix Select ────────────────────────────────────────────────── */
+.select-trigger {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px 12px;
+  background: white; color: #111827; font-size: 14px; cursor: pointer; min-height: 38px;
+  transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.2;
+}
+.select-trigger:hover { border-color: #b91c1c; }
+.select-trigger:focus { box-shadow: 0 0 0 2px #fee2e2, 0 0 0 3px #b91c1c; border-color: #b91c1c; }
+.select-trigger[data-state=open] { border-color: #b91c1c; border-radius: 6px 6px 0 0; }
+.select-icon { color: #9ca3af; transition: transform 0.2s; display: flex; align-items: center; }
+.select-trigger[data-state=open] .select-icon { transform: rotate(180deg); }
+.select-trigger[data-state=open] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+
+.select-content {
+  background: white; border-radius: 0 0 8px 8px; overflow: hidden;
+  box-shadow: 0 8px 30px -6px rgba(0,0,0,0.2), 0 4px 12px -4px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb; border-top: none;
+  min-width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  z-index: 50; animation: selectDown 120ms ease;
+}
+.select-viewport { padding: 4px 0; }
+.select-item {
+  display: flex; align-items: center; padding: 9px 36px 9px 14px;
+  font-size: 14px; color: #374151; cursor: pointer; position: relative; outline: none;
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+  transition: background 0.1s;
+}
+.select-item[data-highlighted] { background: #fff5f5; color: #b91c1c; }
+.select-item[data-state=checked] { font-weight: 600; color: #b91c1c; }
+.select-item-indicator { position: absolute; right: 10px; display: flex; align-items: center; color: #b91c1c; }
+
+/* ── Radix AlertDialog ───────────────────────────────────────────── */
+.alert-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 50;
+  animation: overlayIn 150ms ease;
+  backdrop-filter: blur(2px);
+}
+.alert-content {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: white; border-radius: 12px; padding: 28px 24px;
+  box-shadow: 0 25px 60px -12px rgba(0,0,0,0.3);
+  width: 90vw; max-width: 440px; z-index: 51;
+  animation: alertIn 160ms cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ── Radix Tooltip ───────────────────────────────────────────────── */
+.tooltip-content {
+  background: #1e293b; color: white; font-size: 11px; font-weight: 500;
+  padding: 5px 9px; border-radius: 5px; line-height: 1.3; z-index: 100;
+  pointer-events: none; animation: tooltipIn 100ms ease;
+  display: flex; align-items: center; gap: 5px; white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.tooltip-shortcut { color: #94a3b8; font-size: 10px; }
+.tooltip-arrow { fill: #1e293b; }
+
+/* ── Radix Progress ──────────────────────────────────────────────── */
+.progress-root {
+  position: relative; overflow: hidden; background: #e5e7eb;
+  border-radius: 9999px; height: 8px; width: 100%;
+}
+.progress-indicator {
+  background: linear-gradient(90deg, #b91c1c 0%, #ef4444 60%, #f87171 100%);
+  height: 100%; width: 100%; border-radius: 9999px;
+  transition: transform 350ms cubic-bezier(0.65,0,0.35,1);
+}
+
+/* ── Radix ScrollArea ────────────────────────────────────────────── */
+.scrollarea-root { overflow: hidden; }
+.scrollarea-viewport { width: 100%; height: 100%; border-radius: inherit; overflow-x: hidden !important; }
+.scrollarea-scrollbar {
+  display: flex; user-select: none; touch-action: none;
+  padding: 2px; border-radius: 9999px; transition: background 150ms;
+}
+.scrollarea-scrollbar[data-orientation=vertical] { width: 7px; }
+.scrollarea-scrollbar:hover { background: #f1f5f9; }
+.scrollarea-thumb {
+  flex: 1; background: #cbd5e1; border-radius: 9999px; position: relative;
+  cursor: grab; transition: background 0.15s;
+}
+.scrollarea-thumb:hover { background: #94a3b8; }
+.scrollarea-thumb:active { cursor: grabbing; }
+
+/* ── Radix Tabs ──────────────────────────────────────────────────── */
+.tabs-list {
+  display: flex; background: white; border-radius: 8px; padding: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08); width: fit-content; gap: 2px; margin-bottom: 24px;
+}
+.tabs-trigger {
+  padding: 8px 22px; border-radius: 6px; font-weight: 500; font-size: 14px;
+  color: #6b7280; background: transparent; border: none; cursor: pointer;
+  transition: all 0.18s ease; outline: none; white-space: nowrap;
+  font-family: var(--font-noto-telugu), ui-sans-serif, system-ui, sans-serif;
+  display: inline-flex; align-items: center; justify-content: center; line-height: 1;
+}
+.tabs-trigger:hover:not([data-state=active]) { background: #f9fafb; color: #374151; }
+.tabs-trigger[data-state=active] {
+  background: #b91c1c; color: white;
+  box-shadow: 0 2px 8px rgba(185,28,28,0.35);
+}
+.tabs-content { outline: none; animation: tabFadeIn 180ms ease; }
+
+/* ── File Drop Zone ──────────────────────────────────────────────── */
+.drop-zone {
+  border: 2px dashed #d1d5db; border-radius: 10px; padding: 28px 20px;
+  text-align: center; cursor: pointer; transition: all 0.2s ease;
+  background: #fafafa; position: relative;
+}
+.drop-zone:hover { border-color: #b91c1c; background: #fff8f8; }
+.drop-zone.is-over { border-color: #b91c1c; background: #fff1f1; border-style: solid; transform: scale(1.01); }
+.drop-zone.has-file { border-color: #22c55e; border-style: solid; background: #f0fdf4; }
+
+/* ── Radix Label ─────────────────────────────────────────────────── */
+/* Use className="form-label" on Label.Root since data attribute is unreliable */
+.form-label {
+  font-size: 13px; font-weight: 600; color: #374151; cursor: pointer; display: block;
+  margin-bottom: 5px; line-height: 1.5; letter-spacing: 0.01em;
+}
+
+/* ── Radix Portal / Popper z-index fix ───────────────────────────── */
+[data-radix-popper-content-wrapper] { z-index: 9999 !important; }
+
+/* ── Radix Tabs — hide inactive panel ───────────────────────────── */
+[role=tabpanel][data-state=inactive] { display: none !important; }
+
+/* ── Card hover animation ────────────────────────────────────────── */
+.card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+
+/* ── Input focus style (consistent) ─────────────────────────────── */
+input[type=text]:focus, input[type=date]:focus, textarea:focus {
+  outline: none; border-color: #b91c1c;
+  box-shadow: 0 0 0 2px rgba(185,28,28,0.12);
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────── */
+@keyframes selectDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes alertIn {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes tooltipIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+@keyframes tabFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
