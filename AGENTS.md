@@ -10,7 +10,7 @@ Each app is independent: its own dependencies and lockfile, no shared workspace.
 
 | Folder | What it is | Deploys to | Trigger |
 | --- | --- | --- | --- |
-| `apps/web-apsrtc` | APSRTC portal (Next.js), apptd.info | Vercel, Root Directory `apps/web-apsrtc` | push to `main` |
+| `apps/web-apsrtc` | APSRTC portal (Next.js), apsnew.vercel.app | Vercel, Root Directory `apps/web-apsrtc` | push to `main` |
 | `apps/web-union` | APPTD Union site (Next.js + Firebase), apptdunion.me | Vercel, Root Directory `apps/web-union` (region `bom1` in `vercel.json`) | push to `main` |
 | `apps/mobile-union` | APPTD Union Android app (Flutter) | GitHub Releases (APK) | tag `vX.Y.Z` |
 | `firebase/` | Firestore and Storage rules shared by the site and the app | `firebase deploy --only firestore:rules,storage` from this folder | manual |
